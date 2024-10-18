@@ -23,6 +23,8 @@ target 'TestApp' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'IQKeyboardManagerSwift', :git => 'https://github.com/douglasjunior/IQKeyboardManager.git', :branch => 'react-native-keyboard-manager'
+
   target 'TestAppTests' do
     inherit! :complete
     # Pods for testing

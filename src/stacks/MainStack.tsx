@@ -1,12 +1,15 @@
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {AuthParamsList, AuthStack} from './AuthStack';
 import {HomeParamList, HomeStack} from './HomeStack';
+import {useTypedSelector} from '../hooks';
 
- type RootStackParamList = AuthParamsList & HomeParamList;
+type RootStackParamList = AuthParamsList & HomeParamList;
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 export const MainStack = () => {
+  const isAuthenticated = useTypedSelector(state => state.auth.isAuthenticated);
+
   const AuthScreen = AuthStack?.map(stack => (
     <Stack.Screen
       key={stack.name}
@@ -24,9 +27,12 @@ export const MainStack = () => {
   ));
 
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      {/* {AuthScreen} */}
-      {HomeScreen}
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        ...TransitionPresets.DefaultTransition,
+      }}>
+      {isAuthenticated ? HomeScreen : AuthScreen}
     </Stack.Navigator>
   );
 };

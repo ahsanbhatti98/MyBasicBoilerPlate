@@ -1,7 +1,9 @@
-import httpServices from '../httpservices';
+import {LoginBodyType} from '../../models';
+import httpService from '../https.service';
+import Urls from './api.url';
 
-const login = (body: any) => {
-  return httpServices().post('login', body);
+const login = (body: LoginBodyType) => {
+  return httpService().post(Urls.login, body);
 };
 
 export const AuthApis = {
